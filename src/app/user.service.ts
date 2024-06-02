@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from './user';
+import { User } from 'firebase/auth';
 import { AngularFireList, AngularFireDatabase } from '@angular/fire/compat/database';
 
 @Injectable({
@@ -22,24 +22,6 @@ export class UserService {
 
   }
 
-
-
-
-
-  createUser(user: User) {
-
-    this.userList.push({
-      Cin: user.Cin,
-      nom: user.nom,
-      prenom: user.prenom,
-      Phone: user.Phone,
-
-    }).catch((error: any) => {
-      console.error(error)
-
-    })
-
-  }
 
 
   getUsers(): Observable<any> {

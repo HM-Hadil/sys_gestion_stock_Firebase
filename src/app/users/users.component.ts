@@ -3,11 +3,13 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from '../user';
 import { UserService } from '../user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FirebaseOperation } from '@angular/fire/compat/database/interfaces';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { AuthService } from '../auth.service';
+import { Observable } from 'rxjs';
+import { User } from '../UserProfile';
 
 
 @Component({
@@ -16,97 +18,46 @@ import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent {
-  displayUpdate: boolean = false;
+  users$!: Observable<User[]>;
 
-  id: any
-  errorMessage: string = '';
-  errorMessage1: string = '';
-  Cin!: string
-  nom!: string
-  prenom!: string
-  Phone!: string
-  userforupdate: AngularFireList<any>
-  data = {
-    Cin: '',
-    nom: '',
-
-    prenom: '',
-    Phone: ''
-  }
-  id1: any;
-
-  userfordelete: AngularFireList<any>;
-  listuser: User[] = [];
-
-  displayAdd: boolean = false;
-
-
-
-
-  userList: AngularFireList<any>
-
-  constructor(private router: Router, public dialog: MatDialog,
-    private firebase: AngularFireDatabase, private userService: UserService,
-    private route: ActivatedRoute,
-    private db: AngularFireDatabase) {
-
-    this.userList = db.list('users');
-
-    this.userfordelete = this.firebase.list('users');
-    this.route.params.subscribe(params => {
-      this.id = params
-    });
-    this.userforupdate = this.firebase.list('users');
-    this.id1 = this.route.snapshot.paramMap.get('id');
-    console.log(this.id1)
-  }
-
+  constructor(private authService: AuthService,public dialog: MatDialog,) { }
 
   ngOnInit(): void {
-    this.userService.getUsers().subscribe((results) => {
-
-      this.listUser(results)
-
-    })
-
-
+    this.users$ = this.authService.getUsers();
   }
-
-  listUser(entries: any[]) {
-    this.listuser = [];
-    entries.forEach(element => {
-      let y = element.payload.toJSON()
-      y["$key"] = element.key
-      this.listuser.push(y as User);
-    })
-    console.log(this.listuser);
-  }
-
-  openDialog(key: FirebaseOperation): void {
+  openDialog(id: string): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '350px',
-      data: "voulez-vous vraiment supprimer ces données?"
+      data: "Voulez-vous vraiment supprimer ces données?"
     });
+
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-
-        this.userfordelete.remove(key);
-
-
+        this.authService.deleteUser(id).then(() => {
+          console.log('User successfully deleted!');
+        }).catch(error => {
+          console.error('Error removing user: ', error);
+        });
       }
     });
   }
+  
 
-  edit(key: string) {
 
-    this.router.navigate(['update-user/' + key])
+  approveAccount(uid: string): void {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: "Are you sure you want to accept this user?"
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.authService.updateUserApproval(uid).then(() => {
+          console.log('User approval status updated successfully!');
+        }).catch(error => {
+          console.error('Error updating user approval status: ', error);
+        });
+      }
+    });
   }
-
-
-
-
-
-
-
 }

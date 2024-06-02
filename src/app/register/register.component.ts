@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
       prenom: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       role: ['', Validators.required],
-      phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],  // Assuming a 10-digit phone number
+      phone: ['', [Validators.required]],  // Assuming a 10-digit phone number
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
@@ -27,10 +27,13 @@ export class RegisterComponent implements OnInit {
   }
 
   saveUser() {
+    console.log('forme', this.myForm.value );
+
     if (this.myForm.valid) {
+
       const { nom, prenom, email, role, phone, password } = this.myForm.value;
-      this.authService.signupUser(nom, prenom, role, phone, email, password).then(() => {
-        console.log('User signed up successfully!');
+      this.authService.registerUser(nom, prenom, role, phone, email, password).then(() => {
+        console.log('User signed up successfully!', this.myForm.value );
       }).catch(error => {
         console.error('Error signing up user:', error);
       });

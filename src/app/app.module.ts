@@ -1,3 +1,4 @@
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -53,10 +54,6 @@ import { AlertComponent } from './alert/alert.component';
 
 
 
-
-
-
-
   ],
   imports: [
     BrowserModule,
@@ -67,6 +64,10 @@ import { AlertComponent } from './alert/alert.component';
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
+    AngularFirestoreModule,
+    AngularFireModule,
+
+    
 
     BrowserAnimationsModule,
     AngularFireAuthModule,
