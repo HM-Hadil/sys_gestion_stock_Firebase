@@ -8,48 +8,44 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  visible = false;
-  password = '';
+  loginForm!: FormGroup;
+  password: string = '';
+  visible: boolean = false;
 
-  toggleVisibility() {
+
+
+
+  constructor(private formBuilder: FormBuilder, private authservice: AuthService, private router: Router) { }
+  ngOnInit(): void {
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
+  }
+
+
+  toggleVisibility(): void {
     this.visible = !this.visible;
   }
 
-  loginForm!: FormGroup
-  errorMessage: any;
 
+  async login() {
+    if (this.loginForm.valid) {
+      const email = this.loginForm.get('email')?.value;
+      const password = this.loginForm.get('password')?.value;
 
-
-
-  constructor(private fb: FormBuilder, private authservice: AuthService, private router: Router) { }
-
-  ngOnInit(): void {
-    this.initForm();
-  }
-  initForm() {
-    this.loginForm = this.fb.group({
-      email: new FormControl('', [
-        Validators.required,
-        Validators.email
-      ]),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6)
-      ])
+      try {
+        await this.authservice.loginAndCheckApproval(email, password);
+      } catch (error) {
+        console.error('Error logging in:', error);
+        // Handle error (e.g., display error message)
+      }
+    } else {
+      // Mark all form fields as touched to display validation messages
+      this.loginForm.markAllAsTouched();
     }
-    )
   }
-  getEmail() {
-    return this.loginForm.get('email')
-  }
-  getPassword() {
-    return this.loginForm.get('password')
-  }
-
   
-
-
-
 
 }
 
