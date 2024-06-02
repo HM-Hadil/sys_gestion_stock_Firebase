@@ -1,0 +1,50 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Users</h1>
+    <a routerLink="/adduser" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+            class="fas fa-download fa-sm text-white-50"></i> Add</a>
+
+</div>
+
+
+
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">All Users</h6>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Cin</th>
+                    <th>nom</th>
+                    <th>prenom</th>
+                    <th>Phone</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let item1 of  listuser ">
+                    <td>{{ item1.Cin }}</td>
+                    <td>{{ item1.nom }}</td>
+                    <td>{{ item1.prenom }}</td>
+                    <td>{{ item1.Phone }}</td>
+
+                    <td>
+
+                        <div class="example-button-container">
+                            <button mat-mini-fab color="green" (click)="openDialog(item1.$key)"> delete</button>
+                            <button mat-mini-fab color="green" (click)="edit(item1.$key) "> edit </button>
+
+
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

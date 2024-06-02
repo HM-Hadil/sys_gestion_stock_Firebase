@@ -1,0 +1,10 @@
+<div>
+    <h2>Liste des Commandes</h2>
+    <ul>
+      <li *ngFor="let commande of commandes">
+        {{ commande.nom }} - {{ commande.quantite }}
+        <button (click)="deleteCommande(commande.id)">Supprimer</button>
+      </li>
+    </ul>
+  </div>
+  

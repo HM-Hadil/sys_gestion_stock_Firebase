@@ -1,0 +1,29 @@
+<div *ngIf="materiel">
+  <h2>{{ materiel.nom }} Details</h2>
+  <div><span>id: </span>{{ materiel.id }}</div>
+  <div>
+    <label>
+      Nom:
+      <input [(ngModel)]="materiel.nom" placeholder="Nom" [readonly]="!isAdmin"/>
+    </label>
+  </div>
+  <div>
+    <label>
+      Description:
+      <input [(ngModel)]="materiel.description" placeholder="Description" [readonly]="!isAdmin"/>
+    </label>
+  </div>
+  <div>
+    <label>
+      Quantité:
+      <input type="number" [(ngModel)]="materiel.quantite" placeholder="Quantité" [readonly]="!isAdmin"/>
+    </label>
+  </div>
+  <div>
+    <label>
+      Seuil:
+      <input type="number" [(ngModel)]="materiel.seuil" placeholder="Seuil" [readonly]="!isAdmin"/>
+    </label>
+  </div>
+  <button *ngIf="isAdmin" (click)="updateMateriel()">Enregistrer</button>
+</div>

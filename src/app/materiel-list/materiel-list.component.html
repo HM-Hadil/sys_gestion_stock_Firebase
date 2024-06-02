@@ -1,0 +1,24 @@
+<div>
+    <h2>Liste des Matériels</h2>
+    <ul>
+      <li *ngFor="let materiel of materiels">
+        <div>
+          <strong>Nom:</strong> {{ materiel.nom }}
+        </div>
+        <div>
+          <strong>Type:</strong> {{ materiel.type }}
+        </div>
+        <div>
+          <strong>Quantité:</strong> {{ materiel.quantite }}
+        </div>
+        <div>
+          <strong>description:</strong> {{ materiel.description }}
+        </div>
+        <div>
+          <strong>Seuil d'Alerte:</strong> {{ materiel.seuil }}
+        </div>
+        <button (click)="deleteMateriel(materiel.id)">Supprimer</button>
+      </li>
+    </ul>
+  </div>
+  

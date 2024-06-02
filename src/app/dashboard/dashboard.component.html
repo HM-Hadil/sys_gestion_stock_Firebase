@@ -1,0 +1,28 @@
+<div *ngIf="isAdmin; else notAdmin">
+  <h2>Dashboard</h2>
+  <div class="stats">
+    <div>
+      <h3>Total Matériels</h3>
+      <p>{{ totalMateriels }}</p>
+    </div>
+    <div>
+      <h3>Matériels en faible quantité</h3>
+      <p>{{ lowStockMateriels.length }}</p>
+    </div>
+    <div>
+      <h3>Total Commandes</h3>
+      <p>{{ totalCommandes }}</p>
+    </div>
+  </div>
+  <div class="low-stock-list">
+    <h3>Matériels en faible quantité</h3>
+    <ul>
+      <li *ngFor="let materiel of lowStockMateriels">
+        {{ materiel.nom }} ({{ materiel.quantite }} en stock)
+      </li>
+    </ul>
+  </div>
+</div>
+<ng-template #notAdmin>
+  <p>Accès réservé aux administrateurs.</p>
+</ng-template>
