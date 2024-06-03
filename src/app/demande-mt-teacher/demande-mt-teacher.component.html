@@ -1,0 +1,33 @@
+<!-- materiel-list.component.html -->
+<div class="container">
+  <h2>Materiel List</h2>
+  <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Quantite</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let materiel of materiels">
+          <td>{{ materiel.nom }}</td>
+          <td>{{ materiel.type }}</td>
+          <td>{{ materiel.description }}</td>
+          <td>{{ materiel.quantiteStock }}</td>
+          <td>
+            <div class="example-button-container">
+              <button mat-mini-fab color="primary" (click)="reserver()">Reserver</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #loading>
+    <p>Loading...</p>
+  </ng-template>
+</div>

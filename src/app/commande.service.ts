@@ -1,35 +1,53 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { Observable } from 'rxjs';
-import { Commande } from './commande';
+import { Observable, map } from 'rxjs';
+import { Reservation } from './commande/Reservation';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommandeService {
-  private collectionPath = '/commandes';
+  private dbPath = '/reservations';
 
   constructor(private db: AngularFireDatabase) {}
+  
+  async submitReservation(userId: string, materielId: string, quantity: number, currentDate: string, email: string): Promise<void> {
+    const reservationData: Reservation = {
+      userId,
+      materielId,
+      quantity,
+      date: currentDate,
+      email,
+      status: 'sent' // Add default status
+    };
 
-  getCommandes(): Observable<Commande[]> {
-    return this.db.list<Commande>(this.collectionPath).valueChanges();
+    const reservationRef = this.db.list(this.dbPath).push(reservationData);
+    
+    return new Promise<void>((resolve, reject) => {
+      reservationRef.then(() => {
+        resolve(); // Resolve when the operation is complete
+      }).catch((error) => {
+        reject(error); // Reject if there's an error
+      });
+    });
   }
 
-  getCommande(id: string): Observable<Commande | null> {
-    return this.db.object<Commande>(`${this.collectionPath}/${id}`).valueChanges();
+
+
+  //get the liste of reservation by email of teacher
+  getReservationsByEmail(email: string): Observable<Reservation[]> {
+    return this.db.list<Reservation>(this.dbPath, ref =>
+      ref.orderByChild('email').equalTo(email)
+    ).snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c => ({
+          key: c.payload.key,
+          ...(c.payload.val() as Reservation)
+        }))
+      ),
+      map(reservations => reservations.filter(reservation => reservation.status === 'sent'))
+    );
   }
 
-  createCommande(commande: Commande): Promise<void> {
-    const id = this.db.createPushId();
-    commande.id = id;
-    return this.db.object(`${this.collectionPath}/${id}`).set(commande);
-  }
 
-  updateCommande(id: string, commande: Commande): Promise<void> {
-    return this.db.object(`${this.collectionPath}/${id}`).update(commande);
-  }
-
-  deleteCommande(id: string): Promise<void> {
-    return this.db.object(`${this.collectionPath}/${id}`).remove();
-  }
 }

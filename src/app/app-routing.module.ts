@@ -14,6 +14,10 @@ import { MaterielListComponent } from './materiel-list/materiel-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MaterielDetailComponent } from './materiel-detail/materiel-detail.component';
 import { AddMaterielComponent } from './add-materiel/add-materiel.component';
+import { TeacherProfileComponent } from './teacher-profile/teacher-profile.component';
+import { StudentProfileComponent } from './student-profile/student-profile.component';
+import { DemandeMtTeacherComponent } from './demande-mt-teacher/demande-mt-teacher.component';
+import { ListeDemandeTchComponent } from './liste-demande-tch/liste-demande-tch.component';
 
 
 const routes: Routes = [
@@ -24,8 +28,14 @@ const routes: Routes = [
   { path: 'addMateriel', component: AddMaterielComponent },
   { path: 'listMateriel', component: MaterielListComponent },
   { path: 'materiel-detail/:id', component: MaterielDetailComponent },
+  { path: 'teacher-profile', component: TeacherProfileComponent },
+  { path: 'studentProfile', component: StudentProfileComponent },
+  { path: 'demandeMatTeacher', component: DemandeMtTeacherComponent },
+  { path: 'commandes/:id', component: CommandeComponent },
+  { path: 'listDEmandeTch', component: ListeDemandeTchComponent },
 
- 
+
+
 
   { path: 'resetpassword', component: ResetpasswordComponent },
   { path: 'adduser', component: AddUserComponent },
@@ -34,7 +44,6 @@ const routes: Routes = [
   { path: 'faculte', component: FaculteComponent },
   { path: 'final', component: FinalComponent },
   { path: 'materiels', component: MaterielListComponent },
-  { path: 'commandes', component: CommandeComponent },
   { path: 'dashboard', component: DashboardComponent },
   
 ];

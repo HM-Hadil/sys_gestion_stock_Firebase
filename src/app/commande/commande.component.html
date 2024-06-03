@@ -1,10 +1,14 @@
-<div>
-    <h2>Liste des Commandes</h2>
-    <ul>
-      <li *ngFor="let commande of commandes">
-        {{ commande.nom }} - {{ commande.quantite }}
-        <button (click)="deleteCommande(commande.id)">Supprimer</button>
-      </li>
-    </ul>
-  </div>
-  
+<div class="container">
+  <h2>Reservation Form</h2>
+  <form [formGroup]="reservationForm" (ngSubmit)="submitReservation()">
+    <div>
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity" formControlName="quantity" required>
+    </div>
+    <div>
+      <label for="email">Recipient Email:</label>
+      <input type="email" id="email" formControlName="email" required>
+    </div>
+    <button type="submit">Reserve</button>
+  </form>
+</div>

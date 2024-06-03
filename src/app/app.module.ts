@@ -29,7 +29,10 @@ import { MaterielDetailComponent } from './materiel-detail/materiel-detail.compo
 import { CommandeComponent } from './commande/commande.component';
 import { AlertComponent } from './alert/alert.component';
 import { AddMaterielComponent } from './add-materiel/add-materiel.component';
-
+import { TeacherProfileComponent } from './teacher-profile/teacher-profile.component';
+import { StudentProfileComponent } from './student-profile/student-profile.component';
+import { DemandeMtTeacherComponent } from './demande-mt-teacher/demande-mt-teacher.component';
+import { ListeDemandeTchComponent } from './liste-demande-tch/liste-demande-tch.component';
 
 
 
@@ -53,6 +56,10 @@ import { AddMaterielComponent } from './add-materiel/add-materiel.component';
     CommandeComponent,
     AlertComponent,
     AddMaterielComponent,
+    TeacherProfileComponent,
+    StudentProfileComponent,
+    DemandeMtTeacherComponent,
+    ListeDemandeTchComponent,
 
 
 
@@ -68,9 +75,6 @@ import { AddMaterielComponent } from './add-materiel/add-materiel.component';
     AngularFireDatabaseModule,
     AngularFirestoreModule,
     AngularFireModule,
-
-    
-
     BrowserAnimationsModule,
     AngularFireAuthModule,
     AngularFireModule,

@@ -67,6 +67,12 @@ export class AuthService {
     return this.afAuth.currentUser;
   }
 
+  getUserData(uid: string): Observable<User | null> {
+    return this.firestore.doc<User>(`users/${uid}`).valueChanges().pipe(
+      map(user => user || null) // Map undefined to null
+    );
+  }
+
   isAuthenticated() {
     return this.afAuth.authState;
   }
@@ -84,7 +90,8 @@ export class AuthService {
       // Check if user is signed in
       if (userCredential?.user) {
         const uid = userCredential.user.uid;
-
+        localStorage.setItem('uid', uid);
+  
         // Query Firestore to check if the user is approved
         const userDoc = await this.firestore.collection('users').doc(uid).get().toPromise();
         
@@ -94,12 +101,20 @@ export class AuthService {
           
           // Check if user data exists and if the user is approved
           if (userData && userData.approved === true) {
-            // Navigate to dashboard or any other authorized page
-            this.router.navigate(['/users']);
+            // Navigate based on user role
+            if (userData.role === 'etudiant') {
+              this.router.navigate(['/studentProfile']);
+            } else if (userData.role === 'enseignant') {
+              this.router.navigate(['/teacher-profile']);
+            } else {
+              // Handle unexpected role
+              console.error('Unexpected user role:', userData.role);
+            }
           } else {
+            // Alert the user that their account is not activated yet
+            alert('Your account is not activated yet.');
             // Log out if the user is not approved
             await this.logoutUser();
-            throw new Error('User is not approved.');
           }
         } else {
           // Log out if user document does not exist
@@ -112,7 +127,6 @@ export class AuthService {
       throw error;
     }
   }
-
   async logoutUser() {
     try {
       await this.afAuth.signOut();

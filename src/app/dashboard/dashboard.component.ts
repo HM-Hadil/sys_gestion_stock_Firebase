@@ -3,7 +3,6 @@ import { AuthService } from '../auth.service';
 import { MaterielService } from '../materiel.service';
 import { Materiel } from '../materiel';
 import { CommandeService } from '../commande.service';
-import { Commande } from '../commande';
 
 @Component({
   selector: 'app-dashboard',

@@ -1,6 +1,10 @@
+import { CommandeService } from './../commande.service';
 import { Component, OnInit } from '@angular/core';
-import { CommandeService } from '../commande.service';
-import { Commande } from '../commande';
+import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Materiel } from '../materiel';
+import { MaterielService } from '../materiel.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-commande',
@@ -8,25 +12,78 @@ import { Commande } from '../commande';
   styleUrls: ['./commande.component.css']
 })
 export class CommandeComponent implements OnInit {
-  commandes: Commande[] = [];  // Initialisation du tableau
+  materielId: any;
+  qtstk:any;
 
-  constructor(private commandeService: CommandeService) {}
+  reservationForm!: FormGroup;
+  constructor( private authService:AuthService,   private materielService: MaterielService,   private reservationService:CommandeService,private formBuilder: FormBuilder,private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.commandeService.getCommandes().subscribe(data => {
-      this.commandes = data;
+    this.route.paramMap.subscribe(params => {
+      this.materielId = params.get('id');
+      
+    });
+    this.initForm();
+    this.loadMateriel();
+
+  }
+  initForm(): void {
+    this.reservationForm = this.formBuilder.group({
+      quantity: ['', [Validators.required, Validators.min(1)]],
+      email: ['', [Validators.required, Validators.email]]
     });
   }
+  loadMateriel(): void {
+    this.materielService.getMateriel(this.materielId).subscribe(materiel => {
+      if (materiel) {
+        this.qtstk = materiel.quantiteStock;
+        console.log("materiel ",this.qtstk)
+      } else {
+        // Handle case when materiel is not found
+        console.error('Materiel not found');
+      }
+    });
+  }
+  async submitReservation(): Promise<void> {
+    if (this.reservationForm.valid) {
+      const userId = localStorage.getItem('uid'); // Get user ID from localStorage
+      if (!userId) {
+        console.error('User ID is missing');
+        return;
+      }
 
-  deleteCommande(id?: string): void {  // Rendre l'ID optionnel
-    if (id) {
-      this.commandeService.deleteCommande(id).then(() => {
-        console.log('Commande supprimée avec succès');
-      }).catch(error => {
-        console.error('Erreur lors de la suppression de la commande : ', error);
-      });
+      const quantity = this.reservationForm.value.quantity;
+      const email = this.reservationForm.value.email;
+      const currentDate = new Date().toISOString();
+
+      this.authService.getUsers().subscribe(users => {
+        const user = users.find(u => u.email === email && u.approved==true && u.role==="enseignant");
+        if (user) {
+
+      if (quantity <=this.qtstk) {
+        // Call service method to submit reservation
+        this.reservationService.submitReservation(userId, this.materielId, quantity, currentDate, email)
+          .then(() => {
+            console.log("Reserved successfully");
+            alert("Reserved successfully");
+            // Reset form and hide it
+            this.reservationForm.reset();
+          })
+          .catch((error: any) => {
+            // Handle error (e.g., display error message)
+            console.error('Error submitting reservation:', error);
+          });
+      } else {
+        alert('Quantity desired exceeds available stock.');
+      }
     } else {
-      console.error('Erreur : ID de la commande non défini');
+      alert('The email does not exist or the user is not approved.');
+    }
+  });
     }
   }
-}
+
+  }
+
+ 
+

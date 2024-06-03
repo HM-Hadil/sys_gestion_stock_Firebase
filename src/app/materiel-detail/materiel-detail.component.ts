@@ -1,6 +1,5 @@
 import { Component, OnInit , Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DataService } from '../data.service';
 import { Materiel } from '../materiel';
 import { MaterielService } from '../materiel.service';
 import { AuthService } from '../auth.service';
