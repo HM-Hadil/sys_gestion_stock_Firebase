@@ -1,29 +1,22 @@
-<div *ngIf="materiel">
-  <h2>{{ materiel.nom }} Details</h2>
-  <div><span>id: </span>{{ materiel.id }}</div>
-  <div>
-    <label>
-      Nom:
-      <input [(ngModel)]="materiel.nom" placeholder="Nom" [readonly]="!isAdmin"/>
-    </label>
-  </div>
-  <div>
-    <label>
-      Description:
-      <input [(ngModel)]="materiel.description" placeholder="Description" [readonly]="!isAdmin"/>
-    </label>
-  </div>
-  <div>
-    <label>
-      Quantité:
-      <input type="number" [(ngModel)]="materiel.quantite" placeholder="Quantité" [readonly]="!isAdmin"/>
-    </label>
-  </div>
-  <div>
-    <label>
-      Seuil:
-      <input type="number" [(ngModel)]="materiel.seuil" placeholder="Seuil" [readonly]="!isAdmin"/>
-    </label>
-  </div>
-  <button *ngIf="isAdmin" (click)="updateMateriel()">Enregistrer</button>
+<div class="container">
+  <h2>Update Materiel</h2>
+  <form (ngSubmit)="updateMateriel()">
+    <div class="form-group">
+      <label for="nom">Nom</label>
+      <input type="text" id="nom" [(ngModel)]="materiel.nom" name="nom" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="type">Type</label>
+      <input type="text" id="type" [(ngModel)]="materiel.type" name="type" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input type="text" id="description" [(ngModel)]="materiel.description" name="description" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="quantiteStock">Quantite Stock</label>
+      <input type="number" id="quantiteStock" [(ngModel)]="materiel.quantiteStock" name="quantiteStock" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Update Materiel</button>
+  </form>
 </div>

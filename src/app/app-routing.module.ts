@@ -13,6 +13,7 @@ import { CommandeComponent } from './commande/commande.component';
 import { MaterielListComponent } from './materiel-list/materiel-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MaterielDetailComponent } from './materiel-detail/materiel-detail.component';
+import { AddMaterielComponent } from './add-materiel/add-materiel.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,12 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'users', component: UsersComponent },
+  { path: 'addMateriel', component: AddMaterielComponent },
+  { path: 'listMateriel', component: MaterielListComponent },
+  { path: 'materiel-detail/:id', component: MaterielDetailComponent },
+
+ 
+
   { path: 'resetpassword', component: ResetpasswordComponent },
   { path: 'adduser', component: AddUserComponent },
   { path: 'update-user/:id', component: UpdateUserComponent },
@@ -29,7 +36,7 @@ const routes: Routes = [
   { path: 'materiels', component: MaterielListComponent },
   { path: 'commandes', component: CommandeComponent },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'materiel/:id', component: MaterielDetailComponent },
+  
 ];
 
 @NgModule({

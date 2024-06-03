@@ -18,7 +18,8 @@
     <h3>Matériels en faible quantité</h3>
     <ul>
       <li *ngFor="let materiel of lowStockMateriels">
-        {{ materiel.nom }} ({{ materiel.quantite }} en stock)
+        {{ materiel.nom }} ({{ materiel.quantiteStock
+        }} en stock)
       </li>
     </ul>
   </div>

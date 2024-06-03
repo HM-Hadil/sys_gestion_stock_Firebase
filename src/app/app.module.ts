@@ -28,6 +28,7 @@ import { MaterielListComponent } from './materiel-list/materiel-list.component';
 import { MaterielDetailComponent } from './materiel-detail/materiel-detail.component';
 import { CommandeComponent } from './commande/commande.component';
 import { AlertComponent } from './alert/alert.component';
+import { AddMaterielComponent } from './add-materiel/add-materiel.component';
 
 
 
@@ -51,6 +52,7 @@ import { AlertComponent } from './alert/alert.component';
     MaterielDetailComponent,
     CommandeComponent,
     AlertComponent,
+    AddMaterielComponent,
 
 
 

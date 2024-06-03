@@ -1,5 +1,5 @@
 import { Component, OnInit , Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../data.service';
 import { Materiel } from '../materiel';
 import { MaterielService } from '../materiel.service';
@@ -11,42 +11,41 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./materiel-detail.component.css']
 })
 export class MaterielDetailComponent implements OnInit {
-  @Input() materiel!: Materiel;
-  isAdmin: boolean = false;
-  materiels: Materiel[] | undefined;
-
+  materielId: string | null = null;
+  materiel: Materiel = new Materiel();
   constructor(
     private route: ActivatedRoute,
-    private materielService: MaterielService,
-    private authService: AuthService
-  ) { }
+    private router: Router,
+    private materielService: MaterielService
+  ) {}
 
   ngOnInit(): void {
-   /**  const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.materielService.getMateriels().subscribe(data => {
-        this.materiels = data;
+    this.route.paramMap.subscribe(params => {
+      this.materielId = params.get('id');
+      this.loadMateriel();
+    });
+  }
+  
+  loadMateriel(): void {
+    if (this.materielId) {
+      this.materielService.getMateriel(this.materielId).subscribe(materiel => {
+        if (materiel) {
+          this.materiel = materiel;
+        } else {
+          console.error('Materiel not found');
+        }
       });
+    } else {
+      console.error('Invalid Materiel ID');
     }
-    this.authService.user$.subscribe((user: { role: string; }) => {
-      if (user) {
-        // Vérifiez si l'utilisateur est un administrateur
-        this.isAdmin = user.role === 'admin';
-      }
-    });*/
   }
 
   updateMateriel(): void {
-    if (this.isAdmin && this.materiel.id) {
-      this.materielService.updateMateriel(this.materiel.id, {
-        nom: this.materiel.nom,
-        description: this.materiel.description,
-        quantite: this.materiel.quantite,
-        seuil: this.materiel.seuil
-      }).then(() => {
-        alert('Matériel mis à jour avec succès!');
+    if (this.materielId && this.materiel) {
+      this.materielService.updateMateriel(this.materielId, this.materiel).then(() => {
+        this.router.navigate(['/listMateriel']); // Navigate back to the list or any other page
       }).catch(error => {
-        console.error('Erreur lors de la mise à jour du matériel: ', error);
+        console.error('Error updating materiel:', error);
       });
     }
   }

@@ -2,6 +2,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MaterielService } from '../materiel.service';
 import { Materiel } from '../materiel';
+import { FormGroup } from '@angular/forms';
+import { AngularFireAction, DatabaseSnapshot } from '@angular/fire/compat/database';
+import { map } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-materiel-list',
@@ -9,25 +13,46 @@ import { Materiel } from '../materiel';
   styleUrls: ['./materiel-list.component.css']
 })
 export class MaterielListComponent implements OnInit {
-  materiels: Materiel[] = [];  // Initialisation du tableau
 
-  constructor(private materielService: MaterielService) {}
+
+  materiels: Materiel[] = [];
+
+ 
+  constructor(private materielService: MaterielService,private router:Router) { }
 
   ngOnInit(): void {
-    this.materielService.getMateriels().subscribe(data => {
-      this.materiels = data;
+    this.loadMateriels();
+  }
+
+  loadMateriels(): void {
+    this.materielService.getMaterielList().snapshotChanges().subscribe(changes => {
+      this.materiels = changes.map(c => {
+        const data = c.payload.val() as Materiel;
+        const id = c.payload.key;
+        console.log(`Materiel ID: ${id}`, data);  // Add this line to log each materiel with its ID
+        return { id, ...data };
+      });
     });
   }
 
-  deleteMateriel(id?: string): void {  // Rendre l'ID optionnel
+  deleteMateriel(id: string | undefined): void {
     if (id) {
       this.materielService.deleteMateriel(id).then(() => {
-        console.log('Matériel supprimé avec succès');
+        console.log('Materiel deleted successfully');
+        this.loadMateriels(); // Refresh the list after deletion
       }).catch(error => {
-        console.error('Erreur lors de la suppression du matériel : ', error);
+        console.error('Error deleting materiel:', error);
       });
     } else {
-      console.error('Erreur : ID du matériel non défini');
+      console.error('Materiel ID is undefined');
+    }
+  }
+  editMateriel(id: any | undefined): void {
+    if (id) {
+      console.log("Navigating to edit materiel with ID:", id);
+      this.router.navigate(['/materiel-detail', id]);
+    } else {
+      console.error('Materiel ID is undefined');
     }
   }
 }

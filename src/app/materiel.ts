@@ -1,12 +1,7 @@
 export class Materiel {
-    id?: string;
-    nom?: string;
-    type?: string;
-    quantite?: number;
-    description?:string;
-    seuil?: number;
-  static quantite: any;
-  static seuil: any;
-
-   
+  id?: any;
+  nom?: string;
+  type?: string;
+  description?: string;
+  quantiteStock?: number;
 }

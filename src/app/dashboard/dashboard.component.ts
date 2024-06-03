@@ -33,6 +33,7 @@ export class DashboardComponent implements OnInit {
     });
   }*/
   }
+  /** 
   loadStatistics(): void {
     this.materielService.getMateriels().subscribe(materiels => {
       this.totalMateriels = materiels.length;
@@ -42,6 +43,6 @@ export class DashboardComponent implements OnInit {
     this.commandeService.getCommandes().subscribe(commandes => {
       this.totalCommandes = commandes.length;
     });
-  }
+  }*/
 }
 

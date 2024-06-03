@@ -1,0 +1,40 @@
+
+
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <button class="btn btn-primary my-3" [routerLink]="['/adduser']">Back</button>
+        <h6 class="m-0 font-weight-bold text-primary">Add New Materiel</h6>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="materielForm" (ngSubmit)="addMateriel()">
+        <div class="form-group mb-3">
+                <label for="Cin">Nom :</label>
+                <input type="text" name="Cin" id="Cin" placeholder="Nom" formControlName="nom" required class="form-control" >
+            </div>
+            <div class="form-group mb-3">
+                <label for="firstname">Type :</label>
+                <input type="text" name="nom" id="nom" class="form-control" placeholder="Type" formControlName="type" required>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="lastname">Description :</label>
+                <input type="text" name="prenom" id="prenom" class="form-control" placeholder="Description" formControlName="description">
+            </div>
+            <div class="form-group mb-3">
+                <label for="phone">Quantite Stock :</label>
+                <input type="number" name="phone" id="phone"  class="form-control"
+                 placeholder="Quantite Stock" formControlName="quantiteStock" required>
+
+            </div>
+
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary"[disabled]="materielForm.invalid">Add materiel</button>
+            </div>
+
+
+
+
+        </form>
+    </div>
+</div>
