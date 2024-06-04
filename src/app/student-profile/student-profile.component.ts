@@ -34,6 +34,8 @@ export class StudentProfileComponent {
     }
   }
 
-
+  logout(){
+    this.authService.logoutUser();
+  }
 
 }

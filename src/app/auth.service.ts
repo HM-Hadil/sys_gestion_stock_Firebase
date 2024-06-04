@@ -69,7 +69,7 @@ export class AuthService {
 
   getUserData(uid: string): Observable<User | null> {
     return this.firestore.doc<User>(`users/${uid}`).valueChanges().pipe(
-      map(user => user || null) // Map undefined to null
+      map(user => user || null) 
     );
   }
 
@@ -130,6 +130,7 @@ export class AuthService {
   async logoutUser() {
     try {
       await this.afAuth.signOut();
+      localStorage.removeItem('uid');
       // Redirect to the login page or any other page
       this.router.navigate(['/login']);
     } catch (error) {
@@ -138,4 +139,7 @@ export class AuthService {
     }
   }
 
+  getUserByEmail(uid: string): Observable<User | undefined> {
+    return this.firestore.collection<User>('users').doc(uid).valueChanges();
+  }
 }

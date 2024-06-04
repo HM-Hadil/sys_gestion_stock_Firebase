@@ -1,1 +1,38 @@
-<p>liste-demande-tch works!</p>
+<div class="container">
+  <h2>Materiel List</h2>
+  <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nom & Prenom etudiant</th>
+          <th>nom Materiel </th>
+          <th>Quantite</th>
+          <th>Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let demande of reservations">   
+                 <td>{{ nom }} {{ prenom }}</td>
+             <td>{{ demande.materielId}}</td>
+
+
+          <td>{{ demande.quantity }}</td>
+
+          <td>{{ demande.date }}</td>
+        
+    
+          <td>
+            <div class="example-button-container">
+              <button mat-mini-fab color="warn" (click)="delete(demande.key)" >Delete</button>
+              <button mat-mini-fab color="green" class="ml-4">Accept</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #loading>
+    <p>Loading...</p>
+  </ng-template>
+</div>

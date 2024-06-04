@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { User } from '../UserProfile';
 import { AuthService } from '../auth.service';
+import { auth } from 'firebase-admin';
 
 @Component({
   selector: 'app-teacher-profile',
@@ -28,5 +29,9 @@ export class TeacherProfileComponent {
     } else {
       console.error('UID not found in localStorage');
     }
+  }
+
+  logout(){
+    this.authService.logoutUser();
   }
 }

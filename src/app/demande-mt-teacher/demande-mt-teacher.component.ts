@@ -13,28 +13,27 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class DemandeMtTeacherComponent {
   showReservationForm = false;
-  materiels: Materiel[] = [];
-  id:any;
+  materiels: { id: any, data: Materiel }[] = [];
+
   constructor(private formBuilder: FormBuilder,public dialog: MatDialog,private authService: AuthService,private materielService: MaterielService,private router:Router) { }
 
   ngOnInit(): void {
     
     this.loadMateriels();}
-  loadMateriels(): void {
-    this.materielService.getMaterielList().snapshotChanges().subscribe(changes => {
-      this.materiels = changes.map(c => {
-        const data = c.payload.val() as Materiel;
-        const id = c.payload.key;
-        this.id=id;
-        console.log(`Materiel ID: ${id}`, data);  // Add this line to log each materiel with its ID
-        return { id, ...data };
+    loadMateriels(): void {
+      this.materielService.getMaterielList().snapshotChanges().subscribe(changes => {
+        this.materiels = changes.map(c => {
+          const data = c.payload.val() as Materiel;
+          const id = c.payload.key as string;
+          console.log(`Materiel ID: ${id}`, data);  // Log each materiel with its ID
+          return { id, data };
+        });
       });
-    });
-  }
+    }
  
   
-reserver(){
-  this.router.navigate(['/commandes',this.id])
+reserver(id:any){
+  this.router.navigate(['/commandes',id])
 }
   
 }

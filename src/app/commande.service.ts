@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { Observable, map } from 'rxjs';
 import { Reservation } from './commande/Reservation';
 
@@ -8,6 +8,7 @@ import { Reservation } from './commande/Reservation';
 })
 export class CommandeService {
   private dbPath = '/reservations';
+   reservationsRef!: AngularFireList<Reservation> ;
 
   constructor(private db: AngularFireDatabase) {}
   
@@ -31,8 +32,9 @@ export class CommandeService {
       });
     });
   }
-
-
+  deleteReservation(id: string): Promise<void> {
+    return this.db.object(`${this.dbPath}/${id}`).remove();
+  }
 
   //get the liste of reservation by email of teacher
   getReservationsByEmail(email: string): Observable<Reservation[]> {
@@ -48,6 +50,9 @@ export class CommandeService {
       map(reservations => reservations.filter(reservation => reservation.status === 'sent'))
     );
   }
-
+ // Get Reservation List
+ getReservationList(): AngularFireList<Reservation> {
+  return this.reservationsRef;
+}
 
 }
