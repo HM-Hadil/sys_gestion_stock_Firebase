@@ -1,37 +1,18 @@
 <div class="container">
-  <h2>Materiel List</h2>
-  <div>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Nom & Prenom etudiant</th>
-          <th>nom Materiel </th>
-          <th>Quantite</th>
-          <th>Date</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let demande of reservations">   
-                 <td>{{ nom }} {{ prenom }}</td>
-             <td>{{ demande.materielId}}</td>
-
-
-          <td>{{ demande.quantity }}</td>
-
-          <td>{{ demande.date }}</td>
-        
-    
-          <td>
-            <div class="example-button-container">
-              <button mat-mini-fab color="warn" (click)="delete(demande.key)" >Delete</button>
-              <button mat-mini-fab color="green" class="ml-4">Accept</button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <h2>Demande List</h2>
+  <tr *ngFor="let reservation of reservations">   
+    <td>{{ reservation.nom }} {{ reservation.prenom }}</td>
+    <td>{{ reservation.nomMat }}</td>
+    <td>{{ reservation.quantity }}</td>
+    <td>{{ reservation.date }}</td>
+    <td>
+      <div class="example-button-container">
+        <button mat-mini-fab color="warn" (click)="delete(reservation.key)">Delete</button>
+        <button mat-mini-fab color="green" class="ml-4" (click)="accept(reservation.key)">Accept</button>
+      </div>
+    </td>
+  </tr>
+  
   <ng-template #loading>
     <p>Loading...</p>
   </ng-template>

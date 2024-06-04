@@ -44,35 +44,47 @@ export class ListeDemandeTchComponent {
   loadReservations(email: string): void {
     this.reserve.getReservationsByEmail(email).subscribe(reservations => {
       this.reservations = reservations;
-
+  
       reservations.forEach(reservation => {
-        console.log("reservation.materielId",reservation.materielId);
+        console.log("reservation.materielId", reservation.materielId);
         // Fetch user data
         this.auth.getUserData(reservation.userId).subscribe(user => {
           if (user) {
-            this.nom = user.nom;
-            this.prenom = user.prenom;
+            reservation.nom = user.nom;
+            reservation.prenom = user.prenom;
           } else {
             console.error('User data not found for the given UID:', reservation.userId);
           }
         });
-
+  
         // Fetch materiel data
         this.matservice.getMateriel(reservation.materielId).subscribe(materiel => {
           console.log("mat")
           if (materiel) {
-            this.nomMat = materiel.nom;
-            console.log("materiel.nom",materiel.nom)
+            reservation.nomMat = materiel.nom;
+            console.log("materiel.nom", materiel.nom)
           } else {
             console.error('Materiel data not found for the given ID:', reservation.materielId);
           }
         });
       });
-
+  
       console.log("demandes liste ", this.reservations);
     });
   }
+  
   delete(id:any){
     this.reserve.deleteReservation(id);
   }
-}
+
+ 
+
+  accept(reservationKey: string): void {
+    this.reserve.acceptReservation(reservationKey)
+      .then(() => {
+        console.log('Reservation status updated to accepted successfully');
+      })
+      .catch(error => {
+        console.error('Error updating reservation status:', error);
+      });
+  }}

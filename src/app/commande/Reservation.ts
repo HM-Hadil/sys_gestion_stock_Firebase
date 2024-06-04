@@ -6,5 +6,8 @@ export interface Reservation {
   date: string;
   email: string;
   status: string;
+  nom?: string; // Optional: name of the user
+  prenom?: string; // Optional: last name of the user
+  nomMat?: string;
  
 }

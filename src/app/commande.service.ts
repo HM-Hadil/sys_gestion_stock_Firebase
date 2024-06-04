@@ -54,5 +54,11 @@ export class CommandeService {
  getReservationList(): AngularFireList<Reservation> {
   return this.reservationsRef;
 }
+ // Update Reservation Status to "accepted"
+ acceptReservation(reservationKey: string): Promise<void> {
+  const reservationRef = this.db.object(`reservations/${reservationKey}`);
+  return reservationRef.update({ status: 'accepted' });
+}
+
 
 }
