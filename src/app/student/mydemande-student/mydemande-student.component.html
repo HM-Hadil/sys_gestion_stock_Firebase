@@ -1,0 +1,42 @@
+<div class="container">
+  <h2>Mes Demandes</h2>
+  <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Email enseignant</th>
+          <th>Quantité</th>
+          <th>Status de demande</th>
+          <th>Materiel</th>
+          <th>Date</th>
+          <th>Action</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let reservation of reservations">
+          <td>{{ reservation.email }}</td>
+          <td>{{ reservation.quantity }}</td>
+          <td>{{ reservation.status }}</td>
+          <td>{{ reservation.nomMat }}</td>
+          <td>{{ reservation.date }}</td>
+
+          <td>
+            <div class="example-button-container">
+              <button mat-mini-fab color="warn" *ngIf="reservation.status === 'sent'"
+                (click)="deleteReservation(reservation)">Delete</button>
+              <button mat-mini-fab color="primary" class="ml-4">Edit</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #loading>
+    <p>Loading...</p>
+  </ng-template>
+  <div *ngIf="reservations.length === 0 && !isLoading">
+    <p>No reservations found for this user (sent status).</p>
+  </div>
+</div>

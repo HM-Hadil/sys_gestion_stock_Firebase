@@ -1,12 +1,17 @@
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+  AngularFirestoreDocument,
+  AngularFirestoreModule,
+} from '@angular/fire/compat/firestore';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AngularFireAuthModule } from "@angular/fire/compat/auth";
-import { AngularFireModule } from '@angular/fire/compat'
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,29 +19,24 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { UsersComponent } from './users/users.component';
-import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
-import { AddUserComponent } from './add-user/add-user.component';
-import { UpdateUserComponent } from './update-user/update-user.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { UsersComponent } from './admin/users/users.component';
+import { ResetpasswordComponent } from './auth/register/resetpassword/resetpassword.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
-import { FaculteComponent } from './faculte/faculte.component';
-import { FinalComponent } from './final/final.component';
+import { FaculteComponent } from './home-page/faculte/faculte.component';
+import { FinalComponent } from './home-page/final/final.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { MaterielListComponent } from './materiel-list/materiel-list.component';
-import { MaterielDetailComponent } from './materiel-detail/materiel-detail.component';
-import { CommandeComponent } from './commande/commande.component';
+import { MaterielListComponent } from './materiel-admin/materiel-list/materiel-list.component';
+import { MaterielDetailComponent } from './materiel-admin/materiel-detail/materiel-detail.component';
+import { CommandeComponent } from './student/commande/commande.component';
 import { AlertComponent } from './alert/alert.component';
-import { AddMaterielComponent } from './add-materiel/add-materiel.component';
-import { TeacherProfileComponent } from './teacher-profile/teacher-profile.component';
-import { StudentProfileComponent } from './student-profile/student-profile.component';
-import { DemandeMtTeacherComponent } from './demande-mt-teacher/demande-mt-teacher.component';
-import { ListeDemandeTchComponent } from './liste-demande-tch/liste-demande-tch.component';
-
-
-
-
+import { AddMaterielComponent } from './materiel-admin/add-materiel/add-materiel.component';
+import { TeacherProfileComponent } from './teacher/teacher-profile/teacher-profile.component';
+import { StudentProfileComponent } from './student/student-profile/student-profile.component';
+import { DemandeMtTeacherComponent } from './student/demande-mt-teacher/demande-mt-teacher.component';
+import { ListeDemandeTchComponent } from './teacher/liste-demande-tch/liste-demande-tch.component';
+import { MydemandeStudentComponent } from './student/mydemande-student/mydemande-student.component';
 
 @NgModule({
   declarations: [
@@ -45,8 +45,6 @@ import { ListeDemandeTchComponent } from './liste-demande-tch/liste-demande-tch.
     RegisterComponent,
     UsersComponent,
     ResetpasswordComponent,
-    AddUserComponent,
-    UpdateUserComponent,
     ConfirmationDialogComponent,
     FaculteComponent,
     FinalComponent,
@@ -60,9 +58,7 @@ import { ListeDemandeTchComponent } from './liste-demande-tch/liste-demande-tch.
     StudentProfileComponent,
     DemandeMtTeacherComponent,
     ListeDemandeTchComponent,
-
-
-
+    MydemandeStudentComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,14 +77,9 @@ import { ListeDemandeTchComponent } from './liste-demande-tch/liste-demande-tch.
     MatDialogModule,
     CommonModule,
     MatButtonModule,
-    MatIconModule
-
-
-
-
-
+    MatIconModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

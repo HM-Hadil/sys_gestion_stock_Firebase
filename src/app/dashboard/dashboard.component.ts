@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
-import { MaterielService } from '../materiel.service';
-import { Materiel } from '../materiel';
-import { CommandeService } from '../commande.service';
+import { AuthService } from '../services/authService/auth.service';
+import { MaterielService } from '../services/materielService/materiel.service';
+import { Materiel } from '../models/materielModel/materiel';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
   isAdmin: boolean = false;
@@ -17,12 +16,11 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private materielService: MaterielService,
-    private commandeService: CommandeService,
     private authService: AuthService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-  /** this.authService.user$.subscribe((user: { role: string; }) => {
+    /** this.authService.user$.subscribe((user: { role: string; }) => {
       if (user) {
         this.isAdmin = user.role === 'admin';
         if (this.isAdmin) {
@@ -32,7 +30,7 @@ export class DashboardComponent implements OnInit {
     });
   }*/
   }
-  /** 
+  /**
   loadStatistics(): void {
     this.materielService.getMateriels().subscribe(materiels => {
       this.totalMateriels = materiels.length;
@@ -44,4 +42,3 @@ export class DashboardComponent implements OnInit {
     });
   }*/
 }
-

@@ -1,24 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { UsersComponent } from './users/users.component';
-import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
-import { AddUserComponent } from './add-user/add-user.component';
-import { UpdateUserComponent } from './update-user/update-user.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { UsersComponent } from './admin/users/users.component';
+import { ResetpasswordComponent } from './auth/register/resetpassword/resetpassword.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
-import { FaculteComponent } from './faculte/faculte.component';
-import { FinalComponent } from './final/final.component';
-import { CommandeComponent } from './commande/commande.component';
-import { MaterielListComponent } from './materiel-list/materiel-list.component';
+import { FaculteComponent } from './home-page/faculte/faculte.component';
+import { FinalComponent } from './home-page/final/final.component';
+import { CommandeComponent } from './student/commande/commande.component';
+import { MaterielListComponent } from './materiel-admin/materiel-list/materiel-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { MaterielDetailComponent } from './materiel-detail/materiel-detail.component';
-import { AddMaterielComponent } from './add-materiel/add-materiel.component';
-import { TeacherProfileComponent } from './teacher-profile/teacher-profile.component';
-import { StudentProfileComponent } from './student-profile/student-profile.component';
-import { DemandeMtTeacherComponent } from './demande-mt-teacher/demande-mt-teacher.component';
-import { ListeDemandeTchComponent } from './liste-demande-tch/liste-demande-tch.component';
-
+import { MaterielDetailComponent } from './materiel-admin/materiel-detail/materiel-detail.component';
+import { AddMaterielComponent } from './materiel-admin/add-materiel/add-materiel.component';
+import { TeacherProfileComponent } from './teacher/teacher-profile/teacher-profile.component';
+import { StudentProfileComponent } from './student/student-profile/student-profile.component';
+import { DemandeMtTeacherComponent } from './student/demande-mt-teacher/demande-mt-teacher.component';
+import { ListeDemandeTchComponent } from './teacher/liste-demande-tch/liste-demande-tch.component';
+import { MydemandeStudentComponent } from './student/mydemande-student/mydemande-student.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -34,23 +32,18 @@ const routes: Routes = [
   { path: 'commandes/:id', component: CommandeComponent },
   { path: 'listDEmandeTch', component: ListeDemandeTchComponent },
 
-
-
+  { path: 'MydemandeStudent', component: MydemandeStudentComponent },
 
   { path: 'resetpassword', component: ResetpasswordComponent },
-  { path: 'adduser', component: AddUserComponent },
-  { path: 'update-user/:id', component: UpdateUserComponent },
   { path: 'confirmation-dialog', component: ConfirmationDialogComponent },
   { path: 'faculte', component: FaculteComponent },
   { path: 'final', component: FinalComponent },
   { path: 'materiels', component: MaterielListComponent },
   { path: 'dashboard', component: DashboardComponent },
-  
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
