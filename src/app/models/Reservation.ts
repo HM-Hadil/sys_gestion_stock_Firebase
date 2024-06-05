@@ -9,5 +9,8 @@ export interface Reservation {
   nom?: string; // Optional: name of the user
   prenom?: string; // Optional: last name of the user
   nomMat?: string;
- 
+  role?: string ;
+  qtStock?:number;
+
+
 }

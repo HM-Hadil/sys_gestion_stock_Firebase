@@ -43,12 +43,11 @@ export class MaterielDetailComponent implements OnInit {
 
   updateMateriel(): void {
     if (this.materielId && this.materiel) {
-      this.materielService
-        .updateMateriel(this.materielId, this.materiel)
+      this.materielService.updateMateriel(this.materielId, this.materiel)
         .then(() => {
           this.router.navigate(['/listMateriel']); // Navigate back to the list or any other page
         })
-        .catch((error) => {
+        .catch((error: any) => {
           console.error('Error updating materiel:', error);
         });
     }

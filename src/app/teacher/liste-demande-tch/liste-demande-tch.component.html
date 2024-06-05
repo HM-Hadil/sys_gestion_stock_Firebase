@@ -1,6 +1,18 @@
 <div class="container">
   <h2>Demande List</h2>
-  <tr *ngFor="let reservation of reservations">   
+  <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Materiel</th>
+          <th>Quantite</th>
+          <th>Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+  <tr *ngFor="let reservation of reservations">
     <td>{{ reservation.nom }} {{ reservation.prenom }}</td>
     <td>{{ reservation.nomMat }}</td>
     <td>{{ reservation.quantity }}</td>
@@ -12,8 +24,16 @@
       </div>
     </td>
   </tr>
-  
+</tbody>
+</table>
+</div>
+
   <ng-template #loading>
     <p>Loading...</p>
   </ng-template>
 </div>
+
+
+
+
+

@@ -4,7 +4,6 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { UsersComponent } from './admin/users/users.component';
 import { ResetpasswordComponent } from './auth/register/resetpassword/resetpassword.component';
-import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { FaculteComponent } from './home-page/faculte/faculte.component';
 import { FinalComponent } from './home-page/final/final.component';
 import { CommandeComponent } from './student/commande/commande.component';
@@ -17,6 +16,8 @@ import { StudentProfileComponent } from './student/student-profile/student-profi
 import { DemandeMtTeacherComponent } from './student/demande-mt-teacher/demande-mt-teacher.component';
 import { ListeDemandeTchComponent } from './teacher/liste-demande-tch/liste-demande-tch.component';
 import { MydemandeStudentComponent } from './student/mydemande-student/mydemande-student.component';
+import { ReserverMatTechComponent } from './teacher/reserver-mat-tech/reserver-mat-tech.component';
+import { ListReqAdminComponent } from './admin/list-req-admin/list-req-admin.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -31,11 +32,13 @@ const routes: Routes = [
   { path: 'demandeMatTeacher', component: DemandeMtTeacherComponent },
   { path: 'commandes/:id', component: CommandeComponent },
   { path: 'listDEmandeTch', component: ListeDemandeTchComponent },
-
   { path: 'MydemandeStudent', component: MydemandeStudentComponent },
+  { path: 'reserverMatTech', component: ReserverMatTechComponent },
+  { path: 'listDemandeAdmin', component: ListReqAdminComponent },
+
+
 
   { path: 'resetpassword', component: ResetpasswordComponent },
-  { path: 'confirmation-dialog', component: ConfirmationDialogComponent },
   { path: 'faculte', component: FaculteComponent },
   { path: 'final', component: FinalComponent },
   { path: 'materiels', component: MaterielListComponent },

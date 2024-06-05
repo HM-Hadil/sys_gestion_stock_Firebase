@@ -5,7 +5,7 @@ import {
   AngularFireObject,
 } from '@angular/fire/compat/database';
 import { Observable } from 'rxjs';
-import { Materiel } from '../../models/materielModel/materiel';
+import { Materiel } from 'src/app/models/materielModel/materiel';
 
 @Injectable({
   providedIn: 'root',
@@ -37,5 +37,18 @@ export class MaterielService {
 
   updateMateriel(id: string, materiel: Materiel): Promise<void> {
     return this.db.object(`${this.dbPath}/${id}`).update(materiel);
+  }
+  // Update the stock of a material
+  updateMaterielStock(materielId: string, newStock: number): Observable<void> {
+    return new Observable<void>((observer) => {
+      this.db.object(`materiel/${materielId}`).update({ quantiteStock: newStock })
+        .then(() => {
+          observer.next();
+          observer.complete();
+        })
+        .catch((error) => {
+          observer.error(error);
+        });
+    });
   }
 }

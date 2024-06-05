@@ -23,7 +23,6 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { UsersComponent } from './admin/users/users.component';
 import { ResetpasswordComponent } from './auth/register/resetpassword/resetpassword.component';
-import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { FaculteComponent } from './home-page/faculte/faculte.component';
 import { FinalComponent } from './home-page/final/final.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -37,6 +36,9 @@ import { StudentProfileComponent } from './student/student-profile/student-profi
 import { DemandeMtTeacherComponent } from './student/demande-mt-teacher/demande-mt-teacher.component';
 import { ListeDemandeTchComponent } from './teacher/liste-demande-tch/liste-demande-tch.component';
 import { MydemandeStudentComponent } from './student/mydemande-student/mydemande-student.component';
+import { ReserverMatTechComponent } from './teacher/reserver-mat-tech/reserver-mat-tech.component';
+import { ListReqAdminComponent } from './admin/list-req-admin/list-req-admin.component';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,6 @@ import { MydemandeStudentComponent } from './student/mydemande-student/mydemande
     RegisterComponent,
     UsersComponent,
     ResetpasswordComponent,
-    ConfirmationDialogComponent,
     FaculteComponent,
     FinalComponent,
     DashboardComponent,
@@ -59,6 +60,9 @@ import { MydemandeStudentComponent } from './student/mydemande-student/mydemande
     DemandeMtTeacherComponent,
     ListeDemandeTchComponent,
     MydemandeStudentComponent,
+    ReserverMatTechComponent,
+    ListReqAdminComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     BrowserModule,

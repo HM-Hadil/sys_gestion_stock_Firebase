@@ -5,9 +5,9 @@
       <label for="quantity">Quantity:</label>
       <input type="number" id="quantity" formControlName="quantity" required>
     </div>
-    <div>
+    <div *ngIf="!isEnseignant">
       <label for="email">Recipient Email:</label>
-      <input type="email" id="email" formControlName="email" required>
+      <input type="email" id="email" formControlName="email" >
     </div>
     <button type="submit">Reserve</button>
   </form>

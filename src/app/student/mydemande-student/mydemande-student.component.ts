@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/authService/auth.service';
 import { MaterielService } from '../../services/materielService/materiel.service';
-import { Reservation } from '../commande/Reservation';
+import { Reservation } from '../../models/Reservation';
 import { CommandeService } from 'src/app/services/commandeService/commande.service';
 
 @Component({
@@ -25,7 +25,6 @@ export class MydemandeStudentComponent {
   ngOnInit(): void {
     this.getReservations();
   }
-
   getReservations() {
     this.userId = localStorage.getItem('uid');
     console.log('id user', this.userId);
@@ -33,10 +32,7 @@ export class MydemandeStudentComponent {
     if (this.userId) {
       this.reserve.getReservationsByUserId(this.userId).then((reservations) => {
         this.reservations = reservations;
-        this.reservations = reservations.filter(
-          (reservation) => reservation.status === 'sent'
-        ); // Filter for "sent" status
-        this.isLoading = false;
+        // Removed filtering for "sent" status
 
         reservations.forEach((reservation) => {
           this.materielService
@@ -54,8 +50,8 @@ export class MydemandeStudentComponent {
               }
             });
           console.log('mes demandes', reservations);
-          this.isLoading = false; // Set loading state to false after error
         });
+        this.isLoading = false;
       });
     }
   }

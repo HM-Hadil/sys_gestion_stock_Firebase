@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Reservation } from '../../student/commande/Reservation';
+import { Reservation } from '../../models/Reservation';
 import { AuthService } from '../../services/authService/auth.service';
 import { User } from '../../models/userModel/UserProfile';
 import { MaterielService } from '../../services/materielService/materiel.service';

@@ -3,8 +3,9 @@ import {
   AngularFireDatabase,
   AngularFireList,
 } from '@angular/fire/compat/database';
-import { Observable, map } from 'rxjs';
-import { Reservation } from 'src/app/student/commande/Reservation';
+import { Observable, flatMap, forkJoin, map } from 'rxjs';
+import { Reservation } from 'src/app/models/Reservation';
+import { Materiel } from 'src/app/models/materielModel/materiel';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,8 @@ import { Reservation } from 'src/app/student/commande/Reservation';
 export class CommandeService {
   private dbPath = '/reservations';
   reservationsRef!: AngularFireList<Reservation>;
+  private materielNode = 'materiel';
+
 
   constructor(private db: AngularFireDatabase) {
     this.reservationsRef = this.db.list<Reservation>('reservations');
@@ -78,6 +81,7 @@ export class CommandeService {
     return reservationRef.update({ status: 'signed' });
   }
 
+
   getReservationsByUserId(userId: string): Promise<Reservation[]> {
     return new Promise<Reservation[]>((resolve, reject) => {
       if (this.reservationsRef) {
@@ -109,4 +113,26 @@ export class CommandeService {
       }
     });
   }
+  updateMateriel(materiel: Materiel): Observable<void> {
+    const materielRef = this.db.object(`${this.materielNode}/${materiel.id}`);
+    return new Observable<void>((observer) => {
+      materielRef.update(materiel)
+        .then(() => {
+          observer.next(); // Emit success
+          observer.complete(); // Complete the observable
+        })
+        .catch((error) => {
+          observer.error(error); // Emit error
+        });
+    });
+  }
+  // Get all reservations
+  getAllReservations(): Observable<Reservation[]> {
+    this.reservationsRef = this.db.list('/reservations');
+    return this.reservationsRef.valueChanges().pipe(
+      map(reservations => reservations as Reservation[]) // Cast to Reservation[]
+    );
+  }
+
+ 
 }
