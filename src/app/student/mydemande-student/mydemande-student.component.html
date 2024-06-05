@@ -1,3 +1,6 @@
+<app-student-profile *ngIf="role === 'etudiant'"></app-student-profile>
+<app-teacher-profile *ngIf="role === 'enseignant'"></app-teacher-profile>
+
 <div class="container">
   <h2>Mes Demandes</h2>
   <div>
@@ -25,7 +28,7 @@
             <div class="example-button-container">
               <button mat-mini-fab color="warn" *ngIf="reservation.status == 'sent'"
                       (click)="deleteReservation(reservation)">Delete</button>
-              <button mat-mini-fab color="primary" class="ml-4">Edit</button>
+              <button mat-mini-fab color="primary"  class="ml-4"(click)="editReservation(reservation)">Edit</button>
             </div>
           </td>
         </tr>

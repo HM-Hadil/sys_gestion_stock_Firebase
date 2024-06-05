@@ -2,7 +2,7 @@
 
 
 <div class="container">
-  <h2> Demandes</h2>
+  <h2> Demandes Accepté</h2>
   <div>
     <table class="table">
       <thead>
@@ -13,10 +13,7 @@
           <th>Email Enseignant </th>
           <th>Materiel</th>
           <th>Quanité</th>
-          <th>Quanité Stock</th>
-
           <th>Date</th>
-          <th>Action</th>
 
         </tr>
       </thead>
@@ -27,15 +24,8 @@
           <td>{{ reservation.email }}</td>
           <td>{{ reservation.nomMat }}</td>
           <td>{{ reservation.quantity }}</td>
-          <td>{{ reservation.qtStock }}</td>
           <td>{{ reservation.date }}</td>
 
-          <td>
-            <div class="example-button-container">
-              <button mat-mini-fab color="red" (click)="refuseReservation(reservation)">Refuser</button>
-              <button mat-mini-fab color="green" class="ml-4"  (click)="acceptReservation(reservation)">Accepter</button>
-            </div>
-          </td>
         </tr>
       </tbody>
     </table>

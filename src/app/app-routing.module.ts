@@ -18,6 +18,9 @@ import { ListeDemandeTchComponent } from './teacher/liste-demande-tch/liste-dema
 import { MydemandeStudentComponent } from './student/mydemande-student/mydemande-student.component';
 import { ReserverMatTechComponent } from './teacher/reserver-mat-tech/reserver-mat-tech.component';
 import { ListReqAdminComponent } from './admin/list-req-admin/list-req-admin.component';
+import { EditReservationComponent } from './student/edit-reservation/edit-reservation.component';
+import { ListAcceptReqComponent } from './admin/list-accept-req/list-accept-req.component';
+import { NotificationAdminMatComponent } from './admin/notification-admin-mat/notification-admin-mat.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -35,8 +38,9 @@ const routes: Routes = [
   { path: 'MydemandeStudent', component: MydemandeStudentComponent },
   { path: 'reserverMatTech', component: ReserverMatTechComponent },
   { path: 'listDemandeAdmin', component: ListReqAdminComponent },
-
-
+  { path: 'edit-reservation/:id', component: EditReservationComponent },
+  { path: 'listReqAccepteAdmin', component: ListAcceptReqComponent },
+  { path: 'notificationMateriels', component: NotificationAdminMatComponent },
 
   { path: 'resetpassword', component: ResetpasswordComponent },
   { path: 'faculte', component: FaculteComponent },

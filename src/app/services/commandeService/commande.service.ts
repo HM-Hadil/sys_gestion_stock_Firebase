@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import {
   AngularFireDatabase,
   AngularFireList,
+  SnapshotAction,
 } from '@angular/fire/compat/database';
 import { Observable, flatMap, forkJoin, map } from 'rxjs';
+import { FetchedReservation } from 'src/app/models/FetchedReservation';
 import { Reservation } from 'src/app/models/Reservation';
 import { Materiel } from 'src/app/models/materielModel/materiel';
 
@@ -113,26 +115,55 @@ export class CommandeService {
       }
     });
   }
-  updateMateriel(materiel: Materiel): Observable<void> {
-    const materielRef = this.db.object(`${this.materielNode}/${materiel.id}`);
+  updateReservationStatus(reservation: Reservation): Observable<void> {
     return new Observable<void>((observer) => {
-      materielRef.update(materiel)
+      this.db.object(`reservations/${reservation.key}`).update({ status: 'accepted' })
         .then(() => {
-          observer.next(); // Emit success
-          observer.complete(); // Complete the observable
+          observer.next();
+          observer.complete();
         })
         .catch((error) => {
-          observer.error(error); // Emit error
+          observer.error(error);
         });
     });
   }
-  // Get all reservations
+  refuseReservation(reservation: Reservation): Observable<void> {
+    return new Observable<void>((observer) => {
+      this.db.object(`reservations/${reservation.key}`).update({ status: 'rejected' })
+        .then(() => {
+          observer.next();
+          observer.complete();
+        })
+        .catch((error) => {
+          observer.error(error);
+        });
+    });
+  }
   getAllReservations(): Observable<Reservation[]> {
-    this.reservationsRef = this.db.list('/reservations');
-    return this.reservationsRef.valueChanges().pipe(
-      map(reservations => reservations as Reservation[]) // Cast to Reservation[]
+    return this.db.list<FetchedReservation>(this.dbPath).snapshotChanges().pipe(
+      map((changes: SnapshotAction<FetchedReservation>[]) =>
+        changes.map((c: SnapshotAction<FetchedReservation>) => {
+          const data = c.payload.val();
+          const key = c.payload.key;
+          return { key, ...data } as Reservation; // Type assertion here to ensure proper typing
+        })
+      )
     );
   }
 
- 
+  getReservationById(key: string): Promise<Reservation> {
+    return this.db.object<Reservation>(`reservations/${key}`).valueChanges().pipe(
+      map((reservation) => {
+        if (reservation) {
+          return { key, ...reservation };
+        } else {
+          throw new Error('Reservation not found');
+        }
+      })
+    ).toPromise() as Promise<Reservation>;
+  }
+
+  updateReservation(reservation: Reservation): Promise<void> {
+    return this.db.object(`reservations/${reservation.key}`).update(reservation);
+  }
 }

@@ -39,6 +39,9 @@ import { MydemandeStudentComponent } from './student/mydemande-student/mydemande
 import { ReserverMatTechComponent } from './teacher/reserver-mat-tech/reserver-mat-tech.component';
 import { ListReqAdminComponent } from './admin/list-req-admin/list-req-admin.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { EditReservationComponent } from './student/edit-reservation/edit-reservation.component';
+import { ListAcceptReqComponent } from './admin/list-accept-req/list-accept-req.component';
+import { NotificationAdminMatComponent } from './admin/notification-admin-mat/notification-admin-mat.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +66,9 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     ReserverMatTechComponent,
     ListReqAdminComponent,
     ConfirmationDialogComponent,
+    EditReservationComponent,
+    ListAcceptReqComponent,
+    NotificationAdminMatComponent,
   ],
   imports: [
     BrowserModule,

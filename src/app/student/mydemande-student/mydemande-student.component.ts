@@ -14,6 +14,8 @@ export class MydemandeStudentComponent {
   userId: string | null = null;
   reservations: Reservation[] = [];
   error: any;
+  id:any
+  role: any; // New property to store user role
   isLoading = false; // Flag for loading state
 
   constructor(
@@ -24,8 +26,27 @@ export class MydemandeStudentComponent {
   ) {}
   ngOnInit(): void {
     this.getReservations();
+    this.checkRole();
+  }
+
+  checkRole(){
+    this.id=localStorage.getItem("uid")
+    this.authService.getUserData(this.id).subscribe((user) => {
+      if (user) {
+        this.role = user.role;
+        console.log("role",user.role)
+
+      } else {
+        console.error(
+          'error',
+       this.role
+        );
+      }
+    });
+
   }
   getReservations() {
+    this.id== localStorage.getItem('uid');
     this.userId = localStorage.getItem('uid');
     console.log('id user', this.userId);
 
@@ -73,5 +94,8 @@ export class MydemandeStudentComponent {
           console.error('Error deleting reservation:', error);
         });
     }
+  }
+  editReservation(reservation: Reservation) {
+    this.router.navigate(['/edit-reservation', reservation.key]);
   }
 }

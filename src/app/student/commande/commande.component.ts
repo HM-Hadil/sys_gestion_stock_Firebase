@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Materiel } from '../../models/materielModel/materiel';
 import { MaterielService } from '../../services/materielService/materiel.service';
@@ -24,7 +24,8 @@ export class CommandeComponent implements OnInit {
     private materielService: MaterielService,
     private reservationService: CommandeService,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+private router:Router
   ) {}
 
   ngOnInit(): void {
@@ -104,6 +105,7 @@ export class CommandeComponent implements OnInit {
                     console.log('Reserved successfully');
                     alert('Reserved successfully');
                      window.location.reload();
+                     this.router.navigate(['/MydemandeStudent']);
 
                     this.reservationForm.reset(); // Reset form
                   })

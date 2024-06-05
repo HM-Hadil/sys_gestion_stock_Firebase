@@ -1,0 +1,27 @@
+<div class="container">
+  <h2>Edit Reservation</h2>
+  <form (ngSubmit)="submitForm()">
+    <div class="form-group">
+      <label for="userId">User ID:</label>
+      <input type="text" id="userId" class="form-control" [(ngModel)]="reservation.userId" name="userId" disabled>
+    </div>
+    <div class="form-group">
+      <label for="materielId">Materiel ID:</label>
+      <input type="text" id="materielId" class="form-control" [(ngModel)]="reservation.materielId" name="materielId" disabled>
+    </div>
+    <div class="form-group">
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity" class="form-control" [(ngModel)]="reservation.quantity" name="quantity" required>
+    </div>
+    <select id="material" class="form-control" [(ngModel)]="reservation.materielId" name="material" required>
+      <option *ngFor="let material of materials" [value]="material.id">{{ material.nom }}</option>
+    </select>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" class="form-control" [(ngModel)]="reservation.email" name="email">
+    </div>
+
+    <!-- Add any additional fields from the EditReservation model as needed -->
+    <button type="submit" class="btn btn-primary">Update Reservation</button>
+  </form>
+</div>

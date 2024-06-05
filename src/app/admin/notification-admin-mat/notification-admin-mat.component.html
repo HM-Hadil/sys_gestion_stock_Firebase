@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="alert alert-warning mt-4" role="alert" *ngFor="let materiel of materiels">
+    <h4 class="alert-heading">Materiel Atteind Le Seuil Minimum 5</h4>
+    <hr>
+    <p class="mb-0">Nom: <a style="color: black;font-weight: 500;">{{ materiel.nom }}</a></p>
+    <p class="mb-0">Type: <a style="color: black;font-weight: 500;">{{ materiel.type }}</a></p>
+    <p class="mb-0">Description: <a style="color: black;font-weight: 500;">{{ materiel.description }}</a></p>
+    <p class="mb-0">Quantite Stock: <a style="color: black;font-weight: 500;">{{ materiel.quantiteStock }}</a></p>
+    <hr>
+    <!-- Update button -->
+    <button type="button" class="btn btn-warning" (click)="updateQuantity(materiel.id)">Update</button>
+  </div>
+</div>

@@ -41,10 +41,9 @@ export class MaterielService {
   // Update the stock of a material
   updateMaterielStock(materielId: string, newStock: number): Observable<void> {
     return new Observable<void>((observer) => {
-      this.db.object(`materiel/${materielId}`).update({ quantiteStock: newStock })
+      this.db.object(`${this.dbPath}/${materielId}`).update({ quantiteStock: newStock })
         .then(() => {
-          observer.next();
-          observer.complete();
+
         })
         .catch((error) => {
           observer.error(error);

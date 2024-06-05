@@ -1,4 +1,8 @@
+<app-student-profile *ngIf="role === 'etudiant'"></app-student-profile>
+<app-teacher-profile *ngIf="role === 'enseignant'"></app-teacher-profile>
+
 <!-- materiel-list.component.html -->
+
 <div class="container">
   <h2>Materiel List</h2>
   <div>

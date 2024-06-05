@@ -14,6 +14,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class DemandeMtTeacherComponent {
   showReservationForm = false;
   materiels: { id: any; data: Materiel }[] = [];
+  id:any
+  role: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,6 +27,23 @@ export class DemandeMtTeacherComponent {
 
   ngOnInit(): void {
     this.loadMateriels();
+    this.checkRole();
+  }
+  checkRole(){
+    this.id=localStorage.getItem("uid")
+    this.authService.getUserData(this.id).subscribe((user) => {
+      if (user) {
+        this.role = user.role;
+        console.log("role",user.role)
+
+      } else {
+        console.error(
+          'error',
+       this.role
+        );
+      }
+    });
+
   }
   loadMateriels(): void {
     this.materielService

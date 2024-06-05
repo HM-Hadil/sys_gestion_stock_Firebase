@@ -16,7 +16,7 @@ import { AuthService } from '../../services/authService/auth.service';
 export class RegisterComponent implements OnInit {
   myForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private router:Router,private fb: FormBuilder, private authService: AuthService) {
     this.myForm = this.fb.group({
       nom: ['', Validators.required],
       prenom: ['', Validators.required],
@@ -39,6 +39,8 @@ export class RegisterComponent implements OnInit {
         .registerUser(nom, prenom, role, phone, email, password)
         .then(() => {
           console.log('User signed up successfully!', this.myForm.value);
+           alert("signed up successfully!");
+           this.router.navigate(['/login'])
         })
         .catch((error) => {
           console.error('Error signing up user:', error);
