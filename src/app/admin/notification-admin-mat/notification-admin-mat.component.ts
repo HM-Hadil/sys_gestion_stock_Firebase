@@ -10,7 +10,6 @@ import { MaterielService } from 'src/app/services/materielService/materiel.servi
 })
 export class NotificationAdminMatComponent {
   materiels: Materiel[] = [];
-
   constructor(
     private materielService: MaterielService,
     private router: Router
@@ -38,6 +37,8 @@ export class NotificationAdminMatComponent {
         }); // Filter materiels with quantity less than or equal to 5
 
         console.log('Filtered Materiels:', this.materiels); // Log filtered materiels
+        this.materielService.notificationCount = this.materiels.length;
+        console.log("notificationCount service",this.materielService.notificationCount)
       });
   }
   updateQuantity(id: any){

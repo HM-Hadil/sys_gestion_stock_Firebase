@@ -12,6 +12,8 @@ import { Materiel } from 'src/app/models/materielModel/materiel';
 })
 export class MaterielService {
   private dbPath = '/materiel';
+  notificationCount: number = 0;
+
   materielsRef: AngularFireList<Materiel>;
   constructor(private db: AngularFireDatabase) {
     this.materielsRef = db.list(this.dbPath);

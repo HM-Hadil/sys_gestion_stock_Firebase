@@ -87,6 +87,7 @@ private router:Router
                 console.log('Reserved successfully');
                 alert('Reserved successfully');
                 this.reservationForm.reset(); // Reset form
+                 this.router.navigate(['/MydemandeStudent']);
               })
               .catch((error) => {
                 console.error('Error submitting reservation:', error);

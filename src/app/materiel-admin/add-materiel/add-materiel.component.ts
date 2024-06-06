@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, MinLengthValidator } from '@angular/forms';
 import { Materiel } from '../../models/materielModel/materiel';
 import { MaterielService } from '../../services/materielService/materiel.service';
 
@@ -20,9 +20,11 @@ export class AddMaterielComponent {
       nom: ['', Validators.required],
       type: ['', Validators.required],
       description: [''],
-      quantiteStock: ['', Validators.required],
+      quantiteStock: ['', [Validators.required,Validators.min(1)]],
     });
   }
+ // Custom validator function to ensure quantity is greater than 0
+
 
   addMateriel(): void {
     if (this.materielForm.valid) {

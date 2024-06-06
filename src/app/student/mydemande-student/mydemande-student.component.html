@@ -26,9 +26,8 @@
 
           <td>
             <div class="example-button-container">
-              <button mat-mini-fab color="warn" *ngIf="reservation.status == 'sent'"
+              <button mat-mini-fab color="warn" *ngIf="reservation.status == 'sent' ||reservation.status == 'rejected'"
                       (click)="deleteReservation(reservation)">Delete</button>
-              <button mat-mini-fab color="primary"  class="ml-4"(click)="editReservation(reservation)">Edit</button>
             </div>
           </td>
         </tr>
