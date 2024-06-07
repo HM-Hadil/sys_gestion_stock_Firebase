@@ -12,6 +12,7 @@ import { MaterielService } from 'src/app/services/materielService/materiel.servi
 })
 export class ListAcceptReqComponent {
   reservations: Reservation[] = [];
+  isLoading = false; // Flag for loading state
 
   constructor(
     private db: AngularFireDatabase,
@@ -22,7 +23,7 @@ export class ListAcceptReqComponent {
   ngOnInit(): void {
     this.reservationService.getAllReservations().subscribe(reservations => {
       this.reservations = reservations.filter(reservation =>
-        (!reservation.email && reservation.status !== 'accepted') || reservation.status === 'signed'
+        (reservation.status === 'accepted')
       );
       this.reservations.forEach(reservation => {
         if (reservation.userId) {
@@ -56,6 +57,9 @@ export class ListAcceptReqComponent {
           console.error('Reservation missing materielId:', reservation);
         }
       });
+      this.isLoading = false;
+      // Flag for loading state
+
     }, error => {
       console.error('Error fetching reservations:', error);
     });

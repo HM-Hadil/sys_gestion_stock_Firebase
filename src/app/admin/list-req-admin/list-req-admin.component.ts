@@ -15,7 +15,7 @@ import { Materiel } from 'src/app/models/materielModel/materiel';
 })
 export class ListReqAdminComponent implements OnInit {
   reservations: Reservation[] = [];
-
+  isLoading = false;
   constructor(
     private db: AngularFireDatabase,
     private matservice: MaterielService,
@@ -26,7 +26,7 @@ export class ListReqAdminComponent implements OnInit {
   ngOnInit(): void {
     this.reservationService.getAllReservations().subscribe(reservations => {
       this.reservations = reservations.filter(reservation =>
-        (reservation.status == 'accepted')
+        (!reservation.email && reservation.status !== 'accepted') || reservation.status === 'signed'
       );
       this.reservations.forEach(reservation => {
         if (reservation.userId) {
@@ -60,6 +60,7 @@ export class ListReqAdminComponent implements OnInit {
           console.error('Reservation missing materielId:', reservation);
         }
       });
+      this.isLoading = false;
     }, error => {
       console.error('Error fetching reservations:', error);
     });

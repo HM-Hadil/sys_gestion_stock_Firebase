@@ -44,5 +44,7 @@
   <ng-template #loading>
     <p>Loading...</p>
   </ng-template>
-
+  <div *ngIf="reservations.length === 0 && !isLoading">
+    <p>No demande reservations  found .</p>
+  </div>
 </div>
