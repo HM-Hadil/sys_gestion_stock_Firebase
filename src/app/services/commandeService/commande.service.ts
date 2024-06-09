@@ -22,7 +22,7 @@ export class CommandeService {
     this.reservationsRef = this.db.list<Reservation>('reservations');
   }
 
-  async submitReservation(
+   submitReservation(
     userId: string,
     materielId: string,
     quantity: number,

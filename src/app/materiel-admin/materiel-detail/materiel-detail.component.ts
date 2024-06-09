@@ -45,7 +45,8 @@ export class MaterielDetailComponent implements OnInit {
     if (this.materielId && this.materiel) {
       this.materielService.updateMateriel(this.materielId, this.materiel)
         .then(() => {
-          this.router.navigate(['/listMateriel']); // Navigate back to the list or any other page
+          this.router.navigate(['/listMateriel']);
+          alert(" materiel updated successfully!");
         })
         .catch((error: any) => {
           console.error('Error updating materiel:', error);
